@@ -200,6 +200,10 @@
         } else {
           alert("Browser yang Anda gunakan tidak mendukung Web Storage");
         }
+
+        sessionUserAttempsKey.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+        localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
+        localMaximumAttempField.innerText = localStorage.getItem(localMaximumAttempsKey);
       });
     </script>
   </body>
