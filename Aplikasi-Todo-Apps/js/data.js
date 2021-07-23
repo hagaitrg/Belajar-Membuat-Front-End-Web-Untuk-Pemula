@@ -11,13 +11,13 @@ function isStorageExist() /* boolean */ {
 }
 
 function saveData() {
-  const parsed = JSON.stringify(todos);
+  const parsed /* string */ = JSON.stringify(todos);
   localStorage.setItem(STORAGE_KEY, parsed);
   document.dispatchEvent(new Event("ondatasaved"));
 }
 
 function loadDataFromStorage() {
-  const serializedData = localStorage.getItem(STORAGE_KEY);
+  const serializedData /* string */ = localStorage.getItem(STORAGE_KEY);
 
   let data = JSON.parse(serializedData);
 
@@ -43,6 +43,7 @@ function findTodo(todoId) {
   for (todo of todos) {
     if (todo.id === todoId) return todo;
   }
+
   return null;
 }
 
