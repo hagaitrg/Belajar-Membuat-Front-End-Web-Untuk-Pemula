@@ -57,11 +57,12 @@ function addTodo() {
   const uncompletedTODOList = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
   const textTodo = document.getElementById("title").value;
   const timestamp = document.getElementById("date").value;
+
   const todo = makeTodo(textTodo, timestamp, false);
-  const todoObject = composeTodoObect(textTodo, timestamp, false);
+  const todoObject = composeTodoObject(textTodo, timestamp, false);
 
   todo[TODO_ITEMID] = todoObject.id;
-  todo.push(todoObject);
+  todos.push(todoObject);
 
   uncompletedTODOList.append(todo);
   updateDataToStorage();
