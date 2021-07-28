@@ -1,5 +1,8 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const inputBook = document.getElementById("inputBook");
+document.addEventListener("DOMContentLoaded", function () {
+  const submitBook = document.getElementById("inputBook");
 
-  submitForm.addEventListener("submit", function (event) {});
+  submitBook.addEventListener("submit", function (event) {
+    event.preventDefault();
+    addBook();
+  });
 });
