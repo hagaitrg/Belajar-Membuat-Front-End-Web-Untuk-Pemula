@@ -29,7 +29,7 @@ function makeBook(title, author, year, isCompleted) {
 
 function createUnreadButton() {
   let btn = createButton("yellow", function (event) {
-    unreadBookList(event.target.parentElement.parentElement);
+    addBookToUnread(event.target.parentElement.parentElement);
   });
   btn.innerHTML = "Belum selesai di Baca";
 
@@ -38,7 +38,7 @@ function createUnreadButton() {
 
 function createReadButton() {
   let btn = createButton("green", function (event) {
-    readBookList(event.target.parentElement.parentElement);
+    addBookToRead(event.target.parentElement.parentElement);
   });
   btn.innerHTML = "Selesai di Baca";
 
@@ -87,13 +87,12 @@ function addBook() {
 }
 
 function addBookToRead(bookElement) {
-  const bookTitle = document.getElementById("inputBookTitle").innerText;
-  const bookAuthor = document.getElementById("inputBookAuthor").innerText;
-  const bookYear = document.getElementById("inputBookYear").innerText;
+  const readBookList = document.getElementById(READ_BOOK);
+  const bookTitle = bookElement.querySelector(".book_item > h3").innerText;
+  const bookAuthor = bookElement.querySelector(".book_item > p").innerText;
+  const bookYear = bookElement.querySelector(".book_item > p").innerText;
 
   const newBook = makeBook(bookTitle, bookAuthor, bookYear, true);
-
-  const readBookList = document.getElementById(READ_BOOK);
 
   readBookList.append(newBook);
 
@@ -101,9 +100,9 @@ function addBookToRead(bookElement) {
 }
 
 function addBookToUnread(bookElement) {
-  const bookTitle = document.getElementById("inputBookTitle").innerText;
-  const bookAuthor = document.getElementById("inputBookAuthor").innerText;
-  const bookYear = document.getElementById("inputBookYear").innerText;
+  const bookTitle = bookElement.querySelector(".book_item > h3").innerText;
+  const bookAuthor = bookElement.querySelector(".book_item > p").innerText;
+  const bookYear = bookElement.querySelector(".book_item > p").innerText;
 
   const newBook = makeBook(bookTitle, bookAuthor, bookYear, false);
 
