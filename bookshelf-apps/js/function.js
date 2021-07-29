@@ -6,7 +6,7 @@ function makeBook(title, author, year, isCompleted) {
   booktitle.innerText = title;
 
   const bookAuthor = document.createElement("p");
-  bookAuthor.innerText = "Author: " + author;
+  bookAuthor.innerText = "Penulis: " + author;
 
   const bookYear = document.createElement("p");
   bookYear.innerText = "Tahun: " + year;
@@ -19,30 +19,36 @@ function makeBook(title, author, year, isCompleted) {
   bookArticle.append(booktitle, bookAuthor, bookYear, buttonContainer);
 
   if (isCompleted) {
-    buttonContainer.append(createReadButton(), createDeleteButton());
-  } else {
     buttonContainer.append(createUnreadButton(), createDeleteButton());
+  } else {
+    buttonContainer.append(createReadButton(), createDeleteButton());
   }
 
   return bookArticle;
 }
 
 function createUnreadButton() {
-  let btn = createButton("yellow", function (event) {});
+  let btn = createButton("yellow", function (event) {
+    unreadBookList(event.target.parentElement);
+  });
   btn.innerHTML = "Belum selesai di Baca";
 
   return btn;
 }
 
 function createReadButton() {
-  let btn = createButton("green", function (event) {});
+  let btn = createButton("green", function (event) {
+    readBookList(event.target.parentElement);
+  });
   btn.innerHTML = "Selesai di Baca";
 
   return btn;
 }
 
 function createDeleteButton() {
-  let btn = createButton("red", function (event) {});
+  let btn = createButton("red", function (event) {
+    deleteBook(event.target.parentElement);
+  });
   btn.innerHTML = "Hapus Buku";
 
   return btn;
@@ -51,9 +57,9 @@ function createDeleteButton() {
 function createButton(buttonTypeClass, eventListener) {
   const button = document.createElement("button");
   button.classList.add(buttonTypeClass);
-  // button.addEventListener("click", function (event) {
-  //   eventListener(event);
-  // });
+  button.addEventListener("click", function (event) {
+    eventListener(event);
+  });
 
   return button;
 }
@@ -69,13 +75,45 @@ function addBook() {
   const book = makeBook(bookTitle, bookAuthor, bookYear, isCompletedBook);
 
   if (isCompletedBook) {
-    unreadBookList.append(book);
-  } else {
     readBookList.append(book);
+  } else {
+    unreadBookList.append(book);
   }
 
   // console.log(bookTitle);
   // console.log(bookAuthor);
   // console.log(bookYear);
   // console.log(isCompletedBook);
+}
+
+function addBookToRead(bookElement) {
+  const bookTitle = document.getElementById("inputBookTitle").innerText;
+  const bookAuthor = document.getElementById("inputBookAuthor").innerText;
+  const bookYear = document.getElementById("inputBookYear").innerText;
+
+  const newBook = makeBook(bookTitle, bookAuthor, bookYear, true);
+
+  const readBookList = document.getElementById(READ_BOOK);
+
+  readBookList.append(newBook);
+
+  bookElement.remove();
+}
+
+function addBookToUnread(bookElement) {
+  const bookTitle = document.getElementById("inputBookTitle").innerText;
+  const bookAuthor = document.getElementById("inputBookAuthor").innerText;
+  const bookYear = document.getElementById("inputBookYear").innerText;
+
+  const newBook = makeBook(bookTitle, bookAuthor, bookYear, false);
+
+  const unreadBookList = document.getElementById(UNREAD_BOOK);
+
+  unreadBookList.append(newBook);
+
+  bookElement.remove();
+}
+
+function deleteBook(bookElement) {
+  bookElement.remove();
 }
