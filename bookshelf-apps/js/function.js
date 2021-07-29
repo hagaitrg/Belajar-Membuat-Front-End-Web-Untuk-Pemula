@@ -29,7 +29,7 @@ function makeBook(title, author, year, isCompleted) {
 
 function createUnreadButton() {
   let btn = createButton("yellow", function (event) {
-    unreadBookList(event.target.parentElement);
+    unreadBookList(event.target.parentElement.parentElement);
   });
   btn.innerHTML = "Belum selesai di Baca";
 
@@ -38,7 +38,7 @@ function createUnreadButton() {
 
 function createReadButton() {
   let btn = createButton("green", function (event) {
-    readBookList(event.target.parentElement);
+    readBookList(event.target.parentElement.parentElement);
   });
   btn.innerHTML = "Selesai di Baca";
 
@@ -47,7 +47,7 @@ function createReadButton() {
 
 function createDeleteButton() {
   let btn = createButton("red", function (event) {
-    deleteBook(event.target.parentElement);
+    deleteBook(event.target.parentElement.parentElement);
   });
   btn.innerHTML = "Hapus Buku";
 
