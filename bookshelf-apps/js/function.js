@@ -96,8 +96,8 @@ function addBook() {
 function addBookToRead(bookElement) {
   const readBookList = document.getElementById(READ_BOOK);
   const bookTitle = bookElement.querySelector(".book_item > h3").innerText;
-  const bookAuthor = bookElement.querySelector(".book_item > p").innerText;
-  const bookYear = bookElement.querySelector(".book_item > p").innerText;
+  const bookAuthor = bookElement.querySelector(".book_item > p").innerText.split(" ")[1];
+  const bookYear = bookElement.querySelector(".book_item > p").nextElementSibling.innerText.split(" ")[1];
 
   const newBook = makeBook(bookTitle, bookAuthor, bookYear, true);
   const book = findBook(bookElement[BOOK_ID]);
@@ -113,8 +113,8 @@ function addBookToRead(bookElement) {
 
 function addBookToUnread(bookElement) {
   const bookTitle = bookElement.querySelector(".book_item > h3").innerText;
-  const bookAuthor = bookElement.querySelector(".book_item > p").innerText;
-  const bookYear = bookElement.querySelector(".book_item > p").innerText;
+  const bookAuthor = bookElement.querySelector(".book_item > p").innerText.split(" ")[1];
+  const bookYear = bookElement.querySelector(".book_item > p").nextElementSibling.innerText.split(" ")[1];
 
   const newBook = makeBook(bookTitle, bookAuthor, bookYear, false);
 
