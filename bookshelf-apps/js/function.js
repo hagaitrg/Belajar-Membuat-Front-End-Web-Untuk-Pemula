@@ -1,5 +1,6 @@
 const UNREAD_BOOK = "incompleteBookshelfList";
 const READ_BOOK = "completeBookshelfList";
+const BOOK_ID = "bookId";
 
 function makeBook(title, author, year, isCompleted) {
   const booktitle = document.createElement("h3");
@@ -47,6 +48,7 @@ function createReadButton() {
 
 function createDeleteButton() {
   let btn = createButton("red", function (event) {
+    confirm("Yakin hapus data buku ?");
     deleteBook(event.target.parentElement.parentElement);
   });
   btn.innerHTML = "Hapus Buku";
@@ -73,11 +75,16 @@ function addBook() {
   const isCompletedBook = document.querySelector("#inputBookIsComplete").checked;
 
   const book = makeBook(bookTitle, bookAuthor, bookYear, isCompletedBook);
+  const bookObject = composeBookObject(bookTitle, bookAuthor, bookYear, isCompletedBook);
+  book[BOOK_ID] = bookObject.id;
+  books.push(bookObject);
 
   if (isCompletedBook) {
     readBookList.append(book);
+    updateData();
   } else {
     unreadBookList.append(book);
+    updateData();
   }
 
   // console.log(bookTitle);
@@ -93,10 +100,15 @@ function addBookToRead(bookElement) {
   const bookYear = bookElement.querySelector(".book_item > p").innerText;
 
   const newBook = makeBook(bookTitle, bookAuthor, bookYear, true);
+  const book = findBook(bookElement[BOOK_ID]);
+  book.isCompleted = true;
+  newBook[BOOK_ID] = book.id;
 
   readBookList.append(newBook);
 
   bookElement.remove();
+
+  updateData();
 }
 
 function addBookToUnread(bookElement) {
@@ -107,12 +119,38 @@ function addBookToUnread(bookElement) {
   const newBook = makeBook(bookTitle, bookAuthor, bookYear, false);
 
   const unreadBookList = document.getElementById(UNREAD_BOOK);
+  const book = findBook(bookElement[BOOK_ID]);
+  book.isCompleted = false;
+  newBook[BOOK_ID] = book.id;
 
   unreadBookList.append(newBook);
 
   bookElement.remove();
+
+  updateData();
 }
 
 function deleteBook(bookElement) {
+  const bookPosition = findBookIndex(bookElement[BOOK_ID]);
+  books.splice(bookPosition, 1);
+
   bookElement.remove();
+  updateData();
+}
+
+function refreshData() {
+  const listUnread = document.getElementById(UNREAD_BOOK);
+  const listRead = document.getElementById(READ_BOOK);
+
+  for (book of books) {
+    const newBook = makeBook(book.title, book.author, book.year, book.isCompleted);
+
+    newBook[BOOK_ID] = book.id;
+
+    if (book.isCompleted) {
+      listRead.append(newBook);
+    } else {
+      listUnread.append(newBook);
+    }
+  }
 }

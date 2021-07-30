@@ -4,5 +4,14 @@ document.addEventListener("DOMContentLoaded", function () {
   submitBook.addEventListener("submit", function (event) {
     event.preventDefault();
     addBook();
+    alert("Berhasil tambah buku!");
   });
+
+  if (isStorageExist()) {
+    loadData();
+  }
+});
+
+document.addEventListener("ondataloaded", () => {
+  refreshData();
 });
