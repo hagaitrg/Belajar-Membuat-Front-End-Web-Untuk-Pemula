@@ -35,7 +35,7 @@ function updateData() {
 
 function composeBookObject(title, author, year, isCompleted) {
   return {
-    id: Math.floor(Math.random() * 100),
+    id: Math.floor(Math.random() * 10000),
     title,
     author,
     year,

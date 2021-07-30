@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   submitBook.addEventListener("submit", function (event) {
     event.preventDefault();
     addBook();
+    submitBook.reset();
     alert("Berhasil tambah buku!");
   });
 
